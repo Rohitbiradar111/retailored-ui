@@ -82,7 +82,7 @@ const PendingSalesReport = () => {
 
     const [visible, setVisible] = useState(false);
     const timerRef = useRef<NodeJS.Timeout | null>(null);
-    const longPressDuration = 1000;
+    const longPressDuration = 200;
 
     const handlePressStart = () => {
         timerRef.current = setTimeout(() => {
@@ -352,7 +352,7 @@ const PendingSalesReport = () => {
                 {orders.length > 0 ? (
                     orders.map((item, index) => (
                         <div key={`${item.order_id}-${item.id}`} className="col-12 md:col-6 lg:col-4" ref={index === orders.length - 1 ? lastOrderRef : null}>
-                            <Card className="h-full border-2 border-red-500">
+                            <Card className="h-full border-2 border-red-500" onClick={() => router.push(`/pages/orders/order-details?id=${item.order_id}&source=pending-sales`)}>
                                 <div className="flex flex-column gap-2">
                                     <div className="flex align-items-center gap-2">
                                         <div style={{ border: '2px solid blue', borderRadius: '10px', padding: '25px 2px', backgroundColor: 'lightgray' }}>
@@ -431,28 +431,6 @@ const PendingSalesReport = () => {
                                             </div>
                                         </Dialog>
                                     </div>
-
-                                    {/* <div className="flex flex-column gap-2 mt-3">
-                                        <Button
-                                            label={item.jobOrderStatus.length > 0 ? 'View Job Order' : 'Create Job Order'}
-                                            icon={item.jobOrderStatus.length > 0 ? 'pi pi-eye' : 'pi pi-plus'}
-                                            onClick={() => handleCreateViewJO(item)}
-                                            className={`w-full ${item.jobOrderStatus.length > 0 ? 'p-button-info' : 'p-button-warning'}`}
-                                        />
-
-                                        <Button label="Change Status" icon="pi pi-cog" onClick={() => openStatusChangeDialog(item)} className="w-full p-button-secondary" />
-
-                                        <div className="flex gap-2">
-                                            <Button label="View Sales Order" icon="pi pi-eye" onClick={() => viewSalesOrder(item.order_id)} className="w-full" />
-                                            <Button
-                                                icon="pi pi-trash"
-                                                onClick={() => confirmDelete(item)}
-                                                className="p-button-danger"
-                                                style={{ width: '20%' }}
-                                                disabled={item.jobOrderStatus.length > 0 && item.jobOrderStatus[item.jobOrderStatus.length - 1].status_name === 'Completed'}
-                                            />
-                                        </div>
-                                    </div> */}
                                 </div>
                             </Card>
                         </div>
